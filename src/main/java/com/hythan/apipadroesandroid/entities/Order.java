@@ -13,7 +13,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 @Entity
-public class Orders {
+public class Order {
 
 
     @Id
@@ -29,23 +29,24 @@ public class Orders {
     @NotNull
     private String clientPhone;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private String dateOfOrder;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private String dateOfDelivery;
 
     private ArrayList<Product> products;
 
 
-    public Orders(@NotNull String clientName,
-                  @NotNull String clientAddress,
-                  @NotNull String clientPhone,
-                  String dateOfOrder,
-                  String dateOfDelivery,
-                  ArrayList<Product> products) {
+    public Order(String clientName,
+                 String clientAddress,
+                 String clientPhone,
+                 String dateOfDelivery,
+                 ArrayList<Product> products) {
         this.clientName = clientName;
         this.clientAddress = clientAddress;
         this.clientPhone = clientPhone;
-        this.dateOfOrder = dateOfOrder;
+        this.dateOfOrder = String.valueOf(new Date().getTime());
         this.dateOfDelivery = dateOfDelivery;
         this.products = products;
     }
@@ -104,5 +105,18 @@ public class Orders {
 
     public void setProducts(ArrayList<Product> products) {
         this.products = products;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", clientName='" + clientName + '\'' +
+                ", clientAddress='" + clientAddress + '\'' +
+                ", clientPhone='" + clientPhone + '\'' +
+                ", dateOfOrder='" + dateOfOrder + '\'' +
+                ", dateOfDelivery='" + dateOfDelivery + '\'' +
+                ", products=" + products +
+                '}';
     }
 }

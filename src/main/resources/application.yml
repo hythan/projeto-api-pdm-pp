@@ -1,0 +1,16 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+
+  datasource:
+    password: hythanmco335
+    username: root
+    url: jdbc:mysql://localhost:3306/api_cakestore
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+

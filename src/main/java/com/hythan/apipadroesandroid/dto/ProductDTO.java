@@ -1,13 +1,9 @@
-package com.hythan.apipadroesandroid.entities;
+package com.hythan.apipadroesandroid.dto;
 
-import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
-@Entity
-@Table(name = "products")
-public class Product {
+public class ProductDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String name;
@@ -16,9 +12,10 @@ public class Product {
 
     private Double price;
 
-    public Product(){}
+    public ProductDTO() {
+    }
 
-    public Product(String name, String description, Double price) {
+    public ProductDTO(String name, String description, Double price) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -32,6 +29,7 @@ public class Product {
         this.id = id;
     }
 
+    @NotNull(message = "Nome do produto não pode ser nulo.")
     public String getName() {
         return name;
     }
@@ -48,21 +46,12 @@ public class Product {
         this.description = description;
     }
 
+    @NotNull(message = "Preço do produto não pode ser nulo.")
     public Double getPrice() {
         return price;
     }
 
     public void setPrice(Double price) {
         this.price = price;
-    }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id_product=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                '}';
     }
 }

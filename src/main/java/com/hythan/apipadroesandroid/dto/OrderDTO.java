@@ -1,18 +1,16 @@
-package com.hythan.apipadroesandroid.entities;
+package com.hythan.apipadroesandroid.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.hythan.apipadroesandroid.entities.ItemOrder;
+import com.hythan.apipadroesandroid.entities.Product;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.*;
-import java.util.*;
+public class OrderDTO implements Serializable {
 
-@Entity
-@Table(name = "orders")
-public class Order {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String clientName;
@@ -21,25 +19,15 @@ public class Order {
 
     private String clientPhone;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private String dateOfOrder;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private String dateOfDelivery;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<ItemOrder> orderItems;
+    private ArrayList<ItemOrder> orderItems;
 
-    public Order(){}
-
-    public Order(String clientName,
-                 String clientAddress,
-                 String clientPhone,
-                 String dateOfDelivery,
-                 ArrayList<ItemOrder> orderItems) {
-        this.clientName = clientName;
-        this.clientAddress = clientAddress;
-        this.clientPhone = clientPhone;
-        this.dateOfDelivery = dateOfDelivery;
-        this.orderItems = orderItems;
+    public OrderDTO(){
     }
 
     public Integer getId() {
@@ -50,6 +38,7 @@ public class Order {
         this.id = id;
     }
 
+    @NotNull(message = "Nome do cliente não pode ser nulo.")
     public String getClientName() {
         return clientName;
     }
@@ -58,6 +47,7 @@ public class Order {
         this.clientName = clientName;
     }
 
+    @NotNull(message = "Endereço do cliente não pode ser nulo.")
     public String getClientAddress() {
         return clientAddress;
     }
@@ -90,7 +80,7 @@ public class Order {
         this.dateOfDelivery = dateOfDelivery;
     }
 
-    public List<ItemOrder> getOrderItems() {
+    public ArrayList<ItemOrder> getOrderItems() {
         return orderItems;
     }
 

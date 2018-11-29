@@ -34,7 +34,7 @@ public class ApiPadroesAndroidApplication {
 		public void postConstruct() {
 			Faker faker = new Faker(new Locale("pt-BR"));
 
-			for(int i = 0; i < 1000; i ++){
+			for(int i = 0; i < 100; i ++){
 				service.save(new ProductDTO(faker.name().firstName(),faker.name().fullName(),faker.number().randomDouble(2,1,100)));
 			}
 		}

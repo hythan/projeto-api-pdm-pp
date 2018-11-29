@@ -1,15 +1,19 @@
 package com.hythan.apipadroesandroid.entities;
 
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.DateSerializer;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.*;
 
 @Entity
 @Table(name = "orders")
-public class Order {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class Order extends Audit{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,11 +25,15 @@ public class Order {
 
     private String clientPhone;
 
-    private String dateOfOrder;
+    @JsonSerialize(using = DateSerializer.class)
+    private Date dateOfOrder;
 
-    private String dateOfDelivery;
+    @JsonSerialize(using = DateSerializer.class)
+    private Date dateOfDelivery;
 
-    @OneToMany(cascade = CascadeType.ALL)
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    //@OneToMany
     private List<ItemOrder> orderItems;
 
     public Order(){}
@@ -33,7 +41,7 @@ public class Order {
     public Order(String clientName,
                  String clientAddress,
                  String clientPhone,
-                 String dateOfDelivery,
+                 Date dateOfDelivery,
                  ArrayList<ItemOrder> orderItems) {
         this.clientName = clientName;
         this.clientAddress = clientAddress;
@@ -74,19 +82,21 @@ public class Order {
         this.clientPhone = clientPhone;
     }
 
-    public String getDateOfOrder() {
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
+    public Date getDateOfOrder() {
         return dateOfOrder;
     }
 
-    public void setDateOfOrder(String dateOfOrder) {
+    public void setDateOfOrder(Date dateOfOrder) {
         this.dateOfOrder = dateOfOrder;
     }
 
-    public String getDateOfDelivery() {
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
+    public Date getDateOfDelivery() {
         return dateOfDelivery;
     }
 
-    public void setDateOfDelivery(String dateOfDelivery) {
+    public void setDateOfDelivery(Date dateOfDelivery) {
         this.dateOfDelivery = dateOfDelivery;
     }
 

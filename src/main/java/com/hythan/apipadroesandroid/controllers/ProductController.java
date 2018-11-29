@@ -26,7 +26,7 @@ public class ProductController {
     }
 
 
-    @PostMapping("/novo")
+    @PostMapping
     public Product newProduct(@RequestBody ProductDTO productDTO, BindingResult result){
         return service.save(productDTO);
     }

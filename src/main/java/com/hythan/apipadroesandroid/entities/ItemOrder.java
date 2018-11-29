@@ -5,15 +5,14 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "item_order")
-public class ItemOrder {
+public class ItemOrder extends Audit {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
-//    @JoinTable(name = "products",
-//            joinColumns ={@JoinColumn(name = "id")})
+    @ManyToOne(fetch = FetchType.EAGER)
     private Product product;
 
     private Integer amount;
@@ -48,4 +47,5 @@ public class ItemOrder {
     public void setAmount(Integer amount) {
         this.amount = amount;
     }
+
 }

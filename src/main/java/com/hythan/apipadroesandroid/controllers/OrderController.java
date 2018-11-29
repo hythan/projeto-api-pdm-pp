@@ -1,10 +1,6 @@
 package com.hythan.apipadroesandroid.controllers;
 
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hythan.apipadroesandroid.dto.OrderDTO;
-import com.hythan.apipadroesandroid.entities.ItemOrder;
 import com.hythan.apipadroesandroid.entities.Order;
 import com.hythan.apipadroesandroid.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -34,9 +29,20 @@ public class OrderController {
         return service.save(orderDTO);
     }
 
+    @PatchMapping("/{id}")
+    public Order update(@PathVariable("id") Integer id, @RequestBody OrderDTO orderDTO){
+
+        return service.update(orderDTO, id);
+    }
 
     @GetMapping("/{id}")
     public Optional<Order> getProduct(@PathVariable("id") Integer id){
         return service.findById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public Order delete(@PathVariable("id") Integer id){
+        service.deleteById(id);
+        return null;
     }
 }

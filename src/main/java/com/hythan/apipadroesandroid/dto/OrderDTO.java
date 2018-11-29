@@ -1,12 +1,15 @@
 package com.hythan.apipadroesandroid.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.DateSerializer;
 import com.hythan.apipadroesandroid.entities.ItemOrder;
 import com.hythan.apipadroesandroid.entities.Product;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class OrderDTO implements Serializable {
@@ -20,10 +23,7 @@ public class OrderDTO implements Serializable {
     private String clientPhone;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    private String dateOfOrder;
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    private String dateOfDelivery;
+    private Date dateOfDelivery;
 
     private ArrayList<ItemOrder> orderItems;
 
@@ -64,19 +64,11 @@ public class OrderDTO implements Serializable {
         this.clientPhone = clientPhone;
     }
 
-    public String getDateOfOrder() {
-        return dateOfOrder;
-    }
-
-    public void setDateOfOrder(String dateOfOrder) {
-        this.dateOfOrder = dateOfOrder;
-    }
-
-    public String getDateOfDelivery() {
+    public Date getDateOfDelivery() {
         return dateOfDelivery;
     }
 
-    public void setDateOfDelivery(String dateOfDelivery) {
+    public void setDateOfDelivery(Date dateOfDelivery) {
         this.dateOfDelivery = dateOfDelivery;
     }
 

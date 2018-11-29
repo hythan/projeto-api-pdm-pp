@@ -1,17 +1,12 @@
 package com.hythan.apipadroesandroid.services;
 
 import com.hythan.apipadroesandroid.dto.OrderDTO;
-import com.hythan.apipadroesandroid.entities.ItemOrder;
 import com.hythan.apipadroesandroid.entities.Order;
 import com.hythan.apipadroesandroid.entities.dao.OrdersDAO;
-import com.hythan.apipadroesandroid.repositories.ItemOrderRepository;
 import com.hythan.apipadroesandroid.repositories.OrderRepository;
-import org.aspectj.weaver.ast.Or;
-import org.omg.CORBA.ORB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
 
@@ -21,9 +16,6 @@ public class OrderService implements OrdersDAO {
 
     @Autowired
     private OrderRepository repository;
-
-    @Autowired
-    private ItemOrderRepository itemOrderRepository;
 
     @Override
     public Optional<Order> findById(Integer id) {
@@ -38,19 +30,6 @@ public class OrderService implements OrdersDAO {
     @Override
     public Order save(OrderDTO orderDTO) {
 
-        //TODO codigo comentado para exemplificar o uso de ANTIPATTERN
-
-//        ArrayList<ItemOrder> arrayList = new ArrayList<>();
-//
-//        orderDTO.getOrderItems().forEach(item ->{
-//            ItemOrder itemOrder = new ItemOrder();
-//
-//            itemOrder.setProduct(item.getProduct());
-//            itemOrder.setAmount(item.getAmount());
-//            arrayList.add(itemOrder);
-//
-//            itemOrderRepository.save(itemOrder);
-//        });
         Order newOrder = new Order();
 
         newOrder.setClientName(orderDTO.getClientName());
@@ -59,11 +38,7 @@ public class OrderService implements OrdersDAO {
         newOrder.setDateOfOrder(new Date());
         newOrder.setDateOfDelivery(orderDTO.getDateOfDelivery());
 
-       // newOrder.setOrderItems(arrayList);
         newOrder.setOrderItems(orderDTO.getOrderItems());
-
-
-
 
         return repository.save(newOrder);
     }

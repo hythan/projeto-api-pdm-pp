@@ -12,7 +12,6 @@ import java.util.*;
 
 @Entity
 @Table(name = "orders")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Order extends Audit{
 
     @Id
@@ -32,8 +31,7 @@ public class Order extends Audit{
     private Date dateOfDelivery;
 
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    //@OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<ItemOrder> orderItems;
 
     public Order(){}

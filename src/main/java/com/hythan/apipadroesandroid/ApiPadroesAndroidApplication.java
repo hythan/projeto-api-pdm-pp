@@ -24,19 +24,19 @@ public class ApiPadroesAndroidApplication {
 		SpringApplication.run(ApiPadroesAndroidApplication.class, args);
 	}
 
-	@Component
-	class onInit {
-
-		@Autowired
-		private ProductService service;
-
-		@PostConstruct
-		public void postConstruct() {
-			Faker faker = new Faker(new Locale("pt-BR"));
-
-			for(int i = 0; i < 100; i ++){
-				service.save(new ProductDTO(faker.name().firstName(),faker.name().fullName(),faker.number().randomDouble(2,1,100)));
-			}
-		}
+//	@Component
+//	class onInit {
+//
+//		@Autowired
+//		private ProductService service;
+//
+//		@PostConstruct
+//		public void postConstruct() {
+//			Faker faker = new Faker(new Locale("pt-BR"));
+//
+//			for(int i = 0; i < 100; i ++){
+//				service.save(new ProductDTO(faker.name().firstName(),faker.name().fullName(),faker.number().randomDouble(2,1,100)));
+//			}
+//		}
 	}
 }
